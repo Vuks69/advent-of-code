@@ -69,17 +69,10 @@ def part2(puzzle_input):
     # which is what map and Pool.map care about (Iterable objects).
     seeds = chain.from_iterable(seed_ranges)
 
-    # Pool() by default takes os.cpu_count() workers.
     with Pool() as pool:
-        # WARNING: do not run without limiting RAM accessible to the main process, eg:
-        # systemd-run --scope -p MemoryMax=1G --user ./day05.py
-        # Otherwise you risk locking the system down and have to forcibly power it off.
-        results = pool.map(get_location, seeds)
-
-    # regular map works as expected - pretty much no impact on memory,
-    # but only takes one cpu at a time
-    # results = map(get_location, seeds)
-    return min(results)
+        results = min(pool.imap_unordered(get_location, seeds, 10**6))
+    # results = map(get_location, seeds) # Too slow.
+    return results
 
 
 print(part1(puzzle_input))

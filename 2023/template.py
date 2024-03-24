@@ -1,6 +1,6 @@
 #!/usr/bin/python
 with open("inputs/num.txt") as f:
-    puzzle_input = f.read()
+    puzzle_input = f.read().splitlines()
 
 
 def part1(puzzle_input):

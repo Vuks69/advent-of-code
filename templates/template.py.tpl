@@ -1,5 +1,5 @@
 #!/usr/bin/python
-with open("inputs/num.txt") as f:
+with open("inputs/$day_number.txt") as f:
     puzzle_input = f.read().splitlines()
 
 

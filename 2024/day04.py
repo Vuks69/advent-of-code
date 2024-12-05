@@ -81,7 +81,13 @@ def p1_find_next_letter(
 
 
 def p2_find_x(puzzle_array, position):
-    pass
+    ne = position + directions["NE"]
+    sw = position + directions["SW"]
+    nw = position + directions["NW"]
+    se = position + directions["SE"]
+    line1 = puzzle_array[ne.y][ne.x] + puzzle_array[sw.y][sw.x]
+    line2 = puzzle_array[nw.y][nw.x] + puzzle_array[se.y][se.x]
+    return (line1 == "MS" or line1 == "SM") and (line2 == "MS" or line2 == "SM")
 
 
 def part1(puzzle_input):
@@ -110,16 +116,16 @@ def part2(puzzle_input):
     ]
 
     found = 0
-    for line in starting_positions[1:-1]:
+    for line in starting_positions:
         for pos in line:
-            if pos.x != 0 and pos.x != len(line) - 1:
+            if 0 < pos.x < len(puzzle_input[0]) - 1 and 0 < pos.y < len(puzzle_input) - 1:
                 if p2_find_x(puzzle_input, pos):
                     found += 1
     return found
 
 
 print(part1(puzzle_input))
-assert part1(example) == 18
+print(part1(example))  # 18
 print(part2(puzzle_input))
-assert part2(example) == 9
-assert part2(example2) == 9
+print(part2(example))  # 9
+print(part2(example2))  # 9
